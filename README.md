@@ -6,6 +6,7 @@
 
 * Contract Address:
   + Rinkeby: 0x86a2ba4E6E516833b9B00833d8793e3167d7C4c5
+  + BSC-testnet: 0x63808B0e9A1954c8EF13CE5A665a278A234FC0d2
 
 
 ### View Func：
