@@ -4,7 +4,7 @@ const {
   momaFactory_,
   ethOracle_,
   configs 
-} = require('./rinkeby_test');
+} = require('./bsc_test');
 
 
 parse()

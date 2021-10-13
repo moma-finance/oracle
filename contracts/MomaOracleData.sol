@@ -31,7 +31,7 @@ contract MomaOracleData {
         bool isETH;
     }
 
-    bool public anchored = true;
+    bool public anchored = false;
     address public guardian;
     address public reporter;
 
@@ -76,7 +76,7 @@ contract MomaOracleData {
         ethOracle = ethOracle_;
 
         for (uint i = 0; i < underlyings_.length; i++) {
-            setNewTokenInternal(underlyings_[i], tokenConfigs_[i], true);
+            setNewTokenInternal(underlyings_[i], tokenConfigs_[i], anchored);
         }
     }
 
