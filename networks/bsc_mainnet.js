@@ -56,9 +56,9 @@ const configs = [
     },
     {
         symbol: "MOMAT", 
-        tokenAddr: "0xc7C33ccE4B106313Dc8fcDFa899502266B29286d",
+        tokenAddr: "0x3fCa6743e2fB55759FeE767f3a68B2c06D699dc4",
         linkOracle: "0x0000000000000000000000000000000000000000",
-        uniswapPair: "0x1F7ed22B306Da5E194cfD9CEA83642b7190B475D",
+        uniswapPair: "0x2494a8b391f26B13073138c32B01Bc474f808f33",
         pairToken: "0x55d398326f99059fF775485246999027B3197955",
         baseUnit: "1000000000000000000",
         fixedPrice: "0",
