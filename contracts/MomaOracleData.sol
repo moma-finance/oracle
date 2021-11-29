@@ -36,7 +36,7 @@ contract MomaOracleData {
     address public reporter;
 
     IMomaFactory public immutable momaFactory;
-    ChainlinkOracleInterface public immutable ethOracle;
+    string public ethSymbol;
     /// @notice The highest ratio of the new price to the anchor price that will still trigger the price to be updated
     uint public constant upperBoundAnchorRatio = 1.1e18;
 
@@ -60,20 +60,19 @@ contract MomaOracleData {
     constructor(
         address reporter_,
         IMomaFactory momaFactory_,
-        ChainlinkOracleInterface ethOracle_,
+        string memory ethSymbol_,
         address[] memory underlyings_,
         TokenConfig[] memory tokenConfigs_
     ) {
         // USDC、USDT 1e8
         require(reporter_ != address(0), "reporter_ is zero");
         require(address(momaFactory_) != address(0), "momaFactory_ is zero");
-        require(address(ethOracle_) != address(0), "ethOracle_ is zero");
         require(underlyings_.length == tokenConfigs_.length, "length dismatch");
 
         guardian = msg.sender;
         reporter = reporter_;
         momaFactory = momaFactory_;
-        ethOracle = ethOracle_;
+        ethSymbol = ethSymbol_;
 
         for (uint i = 0; i < underlyings_.length; i++) {
             setNewTokenInternal(underlyings_[i], tokenConfigs_[i], anchored);
@@ -82,12 +81,6 @@ contract MomaOracleData {
 
 
     /*** External Functions ***/
-
-    function getEthPrice() public view returns (uint) {
-        (,int256 price,,,) = ethOracle.latestRoundData();
-        require(price > 0, "Invalid price");
-        return uint(price);
-    }
 
     function getAnchorPrice(string memory symbol_) external view returns (uint) {
         address token = symbols[keccak256(abi.encodePacked(symbol_))];

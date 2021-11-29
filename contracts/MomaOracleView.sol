@@ -16,10 +16,10 @@ contract MomaOracleView is MomaOracleData {
     constructor(
         address reporter_,
         IMomaFactory momaFactory_,
-        ChainlinkOracleInterface ethOracle_,
+        string memory ethSymbol_,
         address[] memory underlyings_,
         TokenConfig[] memory tokenConfigs_
-    ) MomaOracleData(reporter_, momaFactory_, ethOracle_, underlyings_, tokenConfigs_) {}
+    ) MomaOracleData(reporter_, momaFactory_, ethSymbol_, underlyings_, tokenConfigs_) {}
 
     /*** External Functions ***/
 
@@ -29,9 +29,16 @@ contract MomaOracleView is MomaOracleData {
     }
 
     // price 1e8
-    function getPrice(string memory symbol_) external view returns (uint) {
+    function getPrice(string memory symbol_) public view returns (uint) {
         address token = symbols[keccak256(abi.encodePacked(symbol_))];
         return priceInternal(token, tokenConfigs[token]);
+    }
+
+    // price 1e8
+    function getEthPrice() public view returns (uint) {
+        uint price = getPrice(ethSymbol);
+        require(price > 0, "Invalid price");
+        return price;
     }
 
     /**
